@@ -1,0 +1,11 @@
+# Run from .bashrc
+# Contains aliases, but also other personal startup
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ll='ls -hlF'
+alias ls='ls -F'
+
+# Source the file while setting the variable.
+# The file seems to need it set to its own filename.
+. ${BASH_COMPLETION=$HOME/src/customize/bash_completion}

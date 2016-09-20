@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# xz is a file compression format
+
+sudo apt-get install \
+  apt-file \
+  chkconfig \
+  dnsutils \
+  git \
+  gunicorn \
+  htop \
+  info \
+  locate \
+  lsb-release \
+  make \
+  nodejs \
+  ntp \
+  python-gevent \
+  sysvinit \
+  tcpflow \
+  tree \
+  tshark \
+  webalizer \
+  xz-utils
