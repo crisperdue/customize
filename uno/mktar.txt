@@ -1,0 +1,6 @@
+/etc/gunicorn.d/gunicorn.py
+/etc/gunicorn.d/appmodule.py
+/etc/init.d/gunicorn
+/etc/apache2/apache2.conf
+/home/cris/Documents
+/home/cris/bin

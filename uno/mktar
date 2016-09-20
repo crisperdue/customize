@@ -1,0 +1,20 @@
+#!/bin/bash
+
+filename=system.tar
+
+# Search for packages explicitly installed (not as dependencies),
+# displaying just the package name.
+aptitude search '~i!~M' -F '%p' >/tmp/allpkgs.txt
+npkgs=$(wc -l </tmp/allpkgs.txt)
+
+echo Found $npkgs installed packages
+
+# Create /tmp/systar, with absolute pathnames retained as absolute,
+# and keeping permissions.  This should run as root.
+# mktar.txt should have a list of files and dirs to archive.
+
+tar -czpP --exclude-vcs --files-from=/home/cris/bin/mktar.txt --file=/tmp/$filename \
+  /etc/webalizer/*conf
+
+echo "Created /tmp/$filename"
+ls -l /tmp/$filename

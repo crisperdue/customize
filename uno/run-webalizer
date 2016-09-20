@@ -1,0 +1,29 @@
+#!/bin/sh
+
+CONF=/etc/webalizer/webalizer.conf
+
+cd /var/log/lighttpd
+
+zcat access.log.*.gz >all.log
+cat access.log.? >>all.log
+# Omit today's log file.
+# cat access.log >>all.log
+
+echo "Sorting"
+# Sort by the log's time field, format like [11/Sep/2016:06:26:14]
+sort -t ' ' -k 4.9,4.12n -k 4.5,4.7M -k 4.2,4.3n -k 4.14,4.15n -k 4.17,4.18n -k 4.20,4.21n \
+  all.log  >sorted.log
+
+echo "perdues.com:"
+grep '^[^ ]* perdues.com' sorted.log | \
+  webalizer -c $CONF -n perdues.com -o /srv/perdues.com/htdocs/webalizer -
+
+echo "prooftoys.org:"
+grep '^[^ ]* prooftoys.org' sorted.log | \
+  webalizer -c $CONF -n proftoys.org -o /srv/prooftoys.org/htdocs/webalizer -
+
+echo "mathtoys.org:"
+grep '^[^ ]* mathtoys.org' sorted.log | \
+  webalizer -c $CONF -n mathtoys.org -o /srv/mathtoys.org/htdocs/webalizer -
+
+# rm all.log sorted.log
