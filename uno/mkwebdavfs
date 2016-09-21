@@ -7,9 +7,18 @@ if [[ $LOGNAME != 'root' ]]; then
   exit 1
 fi
 
+if [[ -f $FS ]]; then
+  echo "$FS already exists"
+  exit 1
+fi
+
+# Set -x for shell command echoing.
+set -x
+
 dd if=/dev/zero of=$FS bs=1024 count=30720
-losetup dev/loop0 $FS
+losetup /dev/loop0 $FS
 mkfs -t ext4 -v /dev/loop0
 mkdir -p /mnt/webdav
-echo Add following to /etc/fstab
-echo /var/webdavfs	/mnt/webdav	ext4	defaults,noatime,loop	0	0
+# Add following to /etc/fstab
+echo "$FS	/mnt/webdav	ext4	defaults,noatime,loop	0	0" >>/etc/fstab
+mount /mnt/webdav
